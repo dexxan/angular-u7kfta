@@ -8,10 +8,19 @@ import { Product, products } from '../products';
   styleUrls: ['./product-details.component.css']
 })
 export class ProductDetailsComponent implements OnInit {
+  product: Product|undefined;
 
-  constructor() { }
+  constructor(
+    private route: ActivatedRoute,
+  ) { }
 
   ngOnInit() {
+    const routeParams = this.route.snapshot.paramMap;
+    const productIdFromRoute = Number(routeParams.get('productId'));
+    const productUpsell = String(routeParams.get('upsell'));
+  
+    // Find the product that correspond with the id provided in route.
+    this.product = products.find(product => product.id === productIdFromRoute);
   }
 
 }
